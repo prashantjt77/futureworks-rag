@@ -43,7 +43,7 @@ with st.sidebar:
 st.markdown("""
 <div style="background:white; border:1px solid #e2e8f0; border-radius:12px; padding:1.5rem 2rem; margin-bottom:1rem;">
     <div style="font-size:0.75rem; font-weight:700; color:#2563eb !important; background:#dbeafe; display:inline-block; padding:3px 10px; border-radius:20px; margin-bottom:8px;">PROFESSIONAL RAG TOOL</div>
-    <div style="font-size:1.8rem; font-weight:800; color:#0f172a !important;">FutureWorks RAG Assistant</div>
+    <div style="font-size:1.8rem; font-weight:900; color:#0f172a !important;">FutureWorks RAG AI Assistant</div>
     <div style="color:#64748b !important; margin-top:6px;">Upload any document → Get grounded answers. Simple, fast, professional.</div>
 </div>
 """, unsafe_allow_html=True)
