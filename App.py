@@ -8,7 +8,7 @@ Description: Enterprise RAG solution ingesting large unstructured reports,
              Demonstrates AI SDLC, MLOps, Responsible AI.
 
 Author: Prashant Tripathi
-GitHub: https://github.com/prashantjt77/futureworks-ra
+GitHub: https://futureworks-rag-y3kcdvw2uofnafhycsidxr.streamlit.app/
 Copyright: Copyright (c) 2025 Prashant Tripathi. All Rights Reserved.
 Contact: prashantjt77@yahoo.com
 LinkedIn: https://www.linkedin.com/in/prashantcto
