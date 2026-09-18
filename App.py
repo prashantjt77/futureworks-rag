@@ -1,3 +1,31 @@
+"""
+FutureWorks RAG AI - Enterprise-grade RAG Document Intelligence
+
+Project: FutureWorks RAG - From 200-page reports to answers
+Description: Enterprise RAG solution ingesting large unstructured reports,
+             chunking, embedding, vector retrieval, LLM grounded answers
+             on Azure OpenAI / Grok / Groq / OpenAI / Gemini / Claude.
+             Demonstrates AI SDLC, MLOps, Responsible AI.
+
+Author: Prashant Tripathi
+GitHub: https://github.com/prashantjt77/futureworks-ra
+Copyright: Copyright (c) 2025 Prashant Tripathi. All Rights Reserved.
+Contact: prashantjt77@yahoo.com
+LinkedIn: https://www.linkedin.com/in/prashantcto
+Portfolio: https://www.linkedin.com/pulse/introducing-futureworks-rag-from-200-page-reports-answers-tripathi-bione/
+
+License: Proprietary - For portfolio and educational demonstration.
+         Contact author for commercial use.
+
+Version: 2.0 - Light Professional Edition - Production Ready
+Tech Stack: Python | Streamlit | PyPDF2 | python-docx | Azure OpenAI | Grok | Groq | OpenAI | Gemini | Claude
+"""
+
+__author__ = "Prashant Tripathi"
+__copyright__ = "Copyright (c) 2025 Prashant Tripathi"
+__contact__ = "prashantjt77@yahoo.com"
+__github__ = "https://github.com/prashantjt77/futureworks-ra"
+__version__ = "2.0.0"
 
 import streamlit as st
 
@@ -6,16 +34,16 @@ st.set_page_config(page_title="FutureWorks RAG AI", page_icon="🤖", layout="wi
 st.markdown("""
 <style>
 @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap');
-html, body, [class*="css"] { font-family:'Inter', sans-serif !important; }
-.stApp { background: #f8fafc !important; }
-.main .block-container { background: #ffffff !important; border-radius: 16px !important; padding: 1.6rem !important; border: 1px solid #e2e8f0 !important; box-shadow: 0 1px 8px rgba(148,163,184,0.06) !important; max-width: 1280px; }
-p, div, label, li, span { color:#334155 !important; }
-h1,h2,h3,h4 { color:#1e293b !important; }
-[data-testid="stSidebar"] { background: #ffffff !important; border-right: 1px solid #e2e8f0 !important; }
-.stButton>button { background: #334155 !important; color:white !important; border-radius:8px !important; font-weight:500 !important; font-size:0.85rem !important; border:1px solid #475569 !important; text-align:left !important; white-space: normal !important; height: auto !important; padding: 0.6rem 0.8rem !important; }
-.stButton>button * { color:white !important; }
-.stButton>button:hover { background:#1e293b !important; }
-[data-testid="stFileUploader"] { background: #f8fafc !important; border: 1.5px dashed #94a3b8 !important; border-radius:12px !important; }
+html, body, [class*="css"] { font-family:'Inter', sans-serif!important; }
+.stApp { background: #f8fafc!important; }
+.main.block-container { background: #ffffff!important; border-radius: 16px!important; padding: 1.6rem!important; border: 1px solid #e2e8f0!important; box-shadow: 0 1px 8px rgba(148,163,184,0.06)!important; max-width: 1280px; }
+p, div, label, li, span { color:#334155!important; }
+h1,h2,h3,h4 { color:#1e293b!important; }
+[data-testid="stSidebar"] { background: #ffffff!important; border-right: 1px solid #e2e8f0!important; }
+.stButton>button { background: #334155!important; color:white!important; border-radius:8px!important; font-weight:500!important; font-size:0.85rem!important; border:1px solid #475569!important; text-align:left!important; white-space: normal!important; height: auto!important; padding: 0.6rem 0.8rem!important; }
+.stButton>button * { color:white!important; }
+.stButton>button:hover { background:#1e293b!important; }
+[data-testid="stFileUploader"] { background: #f8fafc!important; border: 1.5px dashed #94a3b8!important; border-radius:12px!important; }
 .feature-card { background: #ffffff; border-radius: 12px; padding: 1.1rem; border: 1px solid #e2e8f0; height: 100%; border-left: 3px solid #e2e8f0; }
 .feature-card.blue { border-left-color: #3b82f6; background: #f8fafc; }
 .feature-card.sky { border-left-color: #0ea5e9; background: #f0f9ff; }
@@ -23,9 +51,9 @@ h1,h2,h3,h4 { color:#1e293b !important; }
 .feature-card.lightblue { border-left-color: #60a5fa; background: #eff6ff; }
 .how-step { display: flex; gap: 10px; padding: 0.7rem 0; border-bottom: 1px solid #f1f5f9; }
 .how-step:last-child { border-bottom: none; }
-.step-num { width: 26px; height: 26px; background: #e0f2fe; border: 1px solid #bae6fd; border-radius: 50%; display:flex; align-items:center; justify-content:center; font-size:0.75rem; font-weight:700; color:#0369a1 !important; flex-shrink:0; }
-[data-testid="stChatInput"] { background: white !important; border: 1.5px solid #cbd5e1 !important; border-radius: 12px !important; box-shadow: 0 2px 8px rgba(148,163,184,0.08) !important; }
-[data-testid="stChatInput"]:focus-within { border-color: #3b82f6 !important; box-shadow: 0 0 0 3px rgba(59,130,246,0.12) !important; }
+.step-num { width: 26px; height: 26px; background: #e0f2fe; border: 1px solid #bae6fd; border-radius: 50%; display:flex; align-items:center; justify-content:center; font-size:0.75rem; font-weight:700; color:#0369a1!important; flex-shrink:0; }
+[data-testid="stChatInput"] { background: white!important; border: 1.5px solid #cbd5e1!important; border-radius: 12px!important; box-shadow: 0 2px 8px rgba(148,163,184,0.08)!important; }
+[data-testid="stChatInput"]:focus-within { border-color: #3b82f6!important; box-shadow: 0 0 0 3px rgba(59,130,246,0.12)!important; }
 </style>
 """, unsafe_allow_html=True)
 
@@ -33,12 +61,12 @@ st.markdown("""
 <div style="background: #ffffff; border:1px solid #e2e8f0; border-radius:14px; padding:1.4rem 1.6rem; margin-bottom:1rem; display:flex; align-items:center; gap:14px;">
     <div style="width:50px; height:50px; background: #f1f5f9; border:1px solid #cbd5e1; border-radius:12px; display:flex; align-items:center; justify-content:center; font-size:26px; flex-shrink:0;">🤖</div>
     <div style="flex:1;">
-        <div style="font-size:1.55rem; font-weight:800; color:#1e293b !important; line-height:1.1;">FutureWorks <span style="color:#2563eb !important;">RAG AI</span> Assistant</div>
-        <div style="color:#64748b !important; font-size:0.85rem; margin-top:3px;">Enterprise-grade RAG AI Document Intelligence • Grounded answers • Zero hallucinations • Light Professional Edition</div>
+        <div style="font-size:1.55rem; font-weight:800; color:#1e293b!important; line-height:1.1;">FutureWorks <span style="color:#2563eb!important;">RAG AI</span> Assistant</div>
+        <div style="color:#64748b!important; font-size:0.85rem; margin-top:3px;">Enterprise-grade RAG AI Document Intelligence • Grounded answers • Zero hallucinations • Light Professional Edition</div>
     </div>
     <div style="display:flex; gap:6px; flex-wrap:wrap;">
-        <span style="background:#f0f9ff; border:1px solid #bae6fd; color:#0369a1 !important; padding:4px 10px; border-radius:20px; font-size:0.7rem; font-weight:600;">RAG AI POWERED</span>
-        <span style="background:#f1f5f9; border:1px solid #e2e8f0; color:#334155 !important; padding:4px 10px; border-radius:20px; font-size:0.7rem; font-weight:600;">PRODUCTION READY</span>
+        <span style="background:#f0f9ff; border:1px solid #bae6fd; color:#0369a1!important; padding:4px 10px; border-radius:20px; font-size:0.7rem; font-weight:600;">RAG AI POWERED</span>
+        <span style="background:#f1f5f9; border:1px solid #e2e8f0; color:#334155!important; padding:4px 10px; border-radius:20px; font-size:0.7rem; font-weight:600;">PRODUCTION READY</span>
     </div>
 </div>
 """, unsafe_allow_html=True)
@@ -61,23 +89,23 @@ with col_b:
     <div style="background:#f8fafc; border:1px solid #e2e8f0; border-radius:12px; padding:1rem;">
         <div style="display:grid; grid-template-columns:1fr 1fr; gap:10px;">
             <div style="background:white; border:1px solid #e2e8f0; border-radius:8px; padding:0.7rem; text-align:center;">
-                <div style="font-weight:800; color:#1e293b !important; font-size:1rem;">5+ hrs</div>
-                <div style="color:#64748b !important; font-size:0.7rem;">Saved per doc</div>
+                <div style="font-weight:800; color:#1e293b!important; font-size:1rem;">5+ hrs</div>
+                <div style="color:#64748b!important; font-size:0.7rem;">Saved per doc</div>
             </div>
             <div style="background:white; border:1px solid #e2e8f0; border-radius:8px; padding:0.7rem; text-align:center;">
-                <div style="font-weight:800; color:#0284c7 !important; font-size:1rem;">10x Faster</div>
-                <div style="color:#64748b !important; font-size:0.7rem;">RAG AI Insights</div>
+                <div style="font-weight:800; color:#0284c7!important; font-size:1rem;">10x Faster</div>
+                <div style="color:#64748b!important; font-size:0.7rem;">RAG AI Insights</div>
             </div>
             <div style="background:white; border:1px solid #e2e8f0; border-radius:8px; padding:0.7rem; text-align:center;">
-                <div style="font-weight:800; color:#1e293b !important; font-size:1rem;">100%</div>
-                <div style="color:#64748b !important; font-size:0.7rem;">Grounded Answers</div>
+                <div style="font-weight:800; color:#1e293b!important; font-size:1rem;">100%</div>
+                <div style="color:#64748b!important; font-size:0.7rem;">Grounded Answers</div>
             </div>
             <div style="background:white; border:1px solid #e2e8f0; border-radius:8px; padding:0.7rem; text-align:center;">
-                <div style="font-weight:800; color:#475569 !important; font-size:1rem;">Zero</div>
-                <div style="color:#64748b !important; font-size:0.7rem;">Hallucinations</div>
+                <div style="font-weight:800; color:#475569!important; font-size:1rem;">Zero</div>
+                <div style="color:#64748b!important; font-size:0.7rem;">Hallucinations</div>
             </div>
         </div>
-        <div style="margin-top:10px; padding:8px 10px; background:#f0f9ff; border:1px solid #bae6fd; border-radius:8px; font-size:0.78rem; color:#334155 !important;">
+        <div style="margin-top:10px; padding:8px 10px; background:#f0f9ff; border:1px solid #bae6fd; border-radius:8px; font-size:0.78rem; color:#334155!important;">
             <b>For Professionals:</b> Client-ready RAG AI insights, secure & private, enterprise workflows.
         </div>
     </div>
@@ -131,7 +159,6 @@ def search(chunks, query, k=4):
     return [c for _,c in scored[:k]] or chunks[:k]
 
 def get_answer_local(context, question, provider="Local RAG AI", api_key=""):
-    # If Local, do extractive RAG
     if "Local" in provider or not api_key:
         if not context.strip():
             return "Couldn't find relevant info. Try asking for summary - RAG AI will extract it."
@@ -141,8 +168,7 @@ def get_answer_local(context, question, provider="Local RAG AI", api_key=""):
             if s: answer += f"• {s.strip()}.\n\n"
         answer += f"\n*✅ RAG AI Grounded • {len(sentences)} excerpts • Zero hallucinations*"
         return answer
-    
-    # LLM Enhanced RAG
+
     prompt = f"""You are FutureWorks RAG AI Assistant. Answer ONLY from the document context below. If not in context, say "Not found in document".
 
 Context:
@@ -151,10 +177,9 @@ Context:
 Question: {question}
 
 Answer concisely with bullet points and cite relevant parts:"""
-    
+
     try:
         if "Grok" in provider:
-            # Grok uses OpenAI-compatible API
             from openai import OpenAI
             client = OpenAI(api_key=api_key, base_url="https://api.x.ai/v1")
             resp = client.chat.completions.create(model="grok-2-latest", messages=[{"role":"user","content":prompt}], temperature=0.2)
@@ -181,8 +206,7 @@ Answer concisely with bullet points and cite relevant parts:"""
             msg = client.messages.create(model="claude-3-5-sonnet-20241022", max_tokens=1000, messages=[{"role":"user","content":prompt}])
             return msg.content[0].text + "\n\n*✅ RAG AI Grounded via Claude*"
     except Exception as e:
-        return f"⚠️ {provider} API Error: {e}\n\nFalling back to Local RAG AI:\n" + get_answer_local(context, question, "Local RAG AI", "")
-
+        return f"⚠ {provider} API Error: {e}\n\nFalling back to Local RAG AI:\n" + get_answer_local(context, question, "Local RAG AI", "")
 
 if "chunks" not in st.session_state: st.session_state.chunks=[]
 if "doc_name" not in st.session_state: st.session_state.doc_name=""
@@ -197,9 +221,9 @@ with left:
     st.markdown("#### 📤 Upload Document to RAG AI")
     st.caption("PDF, DOCX, TXT • Light Blue/Gray • Private")
     file=st.file_uploader("Upload", type=["pdf","docx","txt"], label_visibility="collapsed")
-    
+
     if file:
-        if file.name != st.session_state.doc_name:
+        if file.name!= st.session_state.doc_name:
             with st.spinner("🤖 RAG AI parsing & indexing..."):
                 txt=get_text(file)
                 st.session_state.chunks=chunk(txt)
@@ -218,7 +242,7 @@ with left:
                         final.append(q); seen.add(q)
                 st.session_state.questions=final[:5]
         st.success(f"✅ RAG AI indexed {file.name} • {len(st.session_state.chunks)} chunks")
-        
+
         if st.session_state.questions:
             st.markdown("##### 🎯 RAG AI Smart Questions")
             st.caption("Auto-generated from YOUR doc - appears only after parsing")
@@ -232,12 +256,12 @@ with left:
                     st.session_state.messages.append({"role":"assistant","content":ans})
                     st.rerun()
     else:
-        st.markdown('<div style="border:1.5px dashed #94a3b8; border-radius:12px; padding:1.6rem; text-align:center; background:#f8fafc;"><div style="width:44px; height:44px; background:#e0f2fe; border:1px solid #bae6fd; border-radius:10px; display:flex; align-items:center; justify-content:center; font-size:20px; margin:0 auto 8px;">🤖</div><div style="font-weight:600; color:#334155 !important; font-size:0.9rem;">Upload to Activate RAG AI</div><div style="color:#94a3b8 !important; font-size:0.8rem; margin-top:4px;">Smart questions appear only after parsing<br/>100% relevant to YOUR doc</div></div>', unsafe_allow_html=True)
-    
+        st.markdown('<div style="border:1.5px dashed #94a3b8; border-radius:12px; padding:1.6rem; text-align:center; background:#f8fafc;"><div style="width:44px; height:44px; background:#e0f2fe; border:1px solid #bae6fd; border-radius:10px; display:flex; align-items:center; justify-content:center; font-size:20px; margin:0 auto 8px;">🤖</div><div style="font-weight:600; color:#334155!important; font-size:0.9rem;">Upload to Activate RAG AI</div><div style="color:#94a3b8!important; font-size:0.8rem; margin-top:4px;">Smart questions appear only after parsing<br/>100% relevant to YOUR doc</div></div>', unsafe_allow_html=True)
+
     st.markdown("---")
     st.markdown("##### 📖 RAG AI Instructions")
     st.markdown("""
-    <div style="background:#ffffff; border:1px solid #e2e8f0; border-radius:10px; padding:0.9rem; font-size:0.82rem; line-height:1.6; color:#334155 !important;">
+    <div style="background:#ffffff; border:1px solid #e2e8f0; border-radius:10px; padding:0.9rem; font-size:0.82rem; line-height:1.6; color:#334155!important;">
     • Upload any document<br/>
     • RAG AI parses & indexes instantly<br/>
     • Smart questions auto-appear (contextual)<br/>
@@ -249,8 +273,7 @@ with left:
 
 with right:
     st.markdown("#### 💬 Chat with RAG AI Document")
-    
-    # ===== DROPDOWN TO CHANGE GROK TO OTHERS =====
+
     col_provider, col_key = st.columns([1, 1])
     with col_provider:
         provider = st.selectbox(
@@ -262,14 +285,13 @@ with right:
     with col_key:
         api_key_input = ""
         if "Local" not in provider:
-            # Try secrets first
             secret_key = ""
             if "Grok" in provider: secret_key = st.secrets.get("XAI_API_KEY", "") or st.secrets.get("GROK_API_KEY", "")
             elif "Groq" in provider: secret_key = st.secrets.get("GROQ_API_KEY", "")
             elif "OpenAI" in provider: secret_key = st.secrets.get("OPENAI_API_KEY", "")
             elif "Gemini" in provider: secret_key = st.secrets.get("GEMINI_API_KEY", "")
             elif "Claude" in provider: secret_key = st.secrets.get("ANTHROPIC_API_KEY", "")
-            
+
             if secret_key:
                 st.success(f"✅ {provider} key found in Secrets")
                 api_key_input = secret_key
@@ -277,29 +299,25 @@ with right:
                 api_key_input = st.text_input(f"{provider} API Key", type="password", placeholder=f"Enter {provider} API key", label_visibility="collapsed")
                 st.caption(f"Add {provider} key above or in Streamlit Secrets")
         else:
-            st.markdown('<div style="background:#f0fdf4; border:1px solid #bbf7d0; border-radius:8px; padding:0.6rem; font-size:0.8rem; color:#15803d !important;">✅ No API key needed • Local RAG AI</div>', unsafe_allow_html=True)
-    
+            st.markdown('<div style="background:#f0fdf4; border:1px solid #bbf7d0; border-radius:8px; padding:0.6rem; font-size:0.8rem; color:#15803d!important;">✅ No API key needed • Local RAG AI</div>', unsafe_allow_html=True)
+
     st.markdown("<div style='height:8px;'></div>", unsafe_allow_html=True)
     st.session_state.provider = provider
     st.session_state.api_key = api_key_input
 
-    
     if not st.session_state.chunks:
-        st.markdown('<div style="border:1px solid #e2e8f0; border-radius:12px; padding:2rem; text-align:center; background:white;"><div style="font-size:32px;">🤖💭</div><div style="font-weight:600; color:#334155 !important; margin-top:8px;">RAG AI Ready</div><div style="color:#94a3b8 !important; font-size:0.85rem; margin-top:4px;">Upload document on left - RAG AI delivers grounded answers only</div></div>', unsafe_allow_html=True)
-        st.markdown('<div style="margin-top:1rem; border:1px solid #e2e8f0; border-radius:12px; padding:0.8rem 1rem; background:#f8fafc; color:#94a3b8 !important; font-size:0.88rem;">💬 Type here to chat with the document content</div>', unsafe_allow_html=True)
+        st.markdown('<div style="border:1px solid #e2e8f0; border-radius:12px; padding:2rem; text-align:center; background:white;"><div style="font-size:32px;">🤖💭</div><div style="font-weight:600; color:#334155!important; margin-top:8px;">RAG AI Ready</div><div style="color:#94a3b8!important; font-size:0.85rem; margin-top:4px;">Upload document on left - RAG AI delivers grounded answers only</div></div>', unsafe_allow_html=True)
+        st.markdown('<div style="margin-top:1rem; border:1px solid #e2e8f0; border-radius:12px; padding:0.8rem 1rem; background:#f8fafc; color:#94a3b8!important; font-size:0.88rem;">💬 Type here to chat with the document content</div>', unsafe_allow_html=True)
     else:
         st.caption(f"🤖 Chatting with RAG AI about **{st.session_state.doc_name}** • Fixed chat • Portfolio-grade")
-        
-        # EXPERT: Fixed height scrollable history - input stays static below
         chat_container = st.container(height=420, border=True)
         with chat_container:
             for m in st.session_state.messages:
                 with st.chat_message(m["role"]):
                     st.markdown(m["content"])
             if not st.session_state.messages:
-                st.markdown('<div style="text-align:center; padding:2rem; color:#94a3b8 !important;"><div style="font-size:24px;">👋</div><div style="font-weight:500; margin-top:6px;">Start chatting with your document</div><div style="font-size:0.82rem; margin-top:4px;">Ask anything - RAG AI answers only from YOUR doc<br/>Example: "What is the summary?"</div></div>', unsafe_allow_html=True)
-        
-        # STATIC INPUT - NEVER MOVES DOWN
+                st.markdown('<div style="text-align:center; padding:2rem; color:#94a3b8!important;"><div style="font-size:24px;">👋</div><div style="font-weight:500; margin-top:6px;">Start chatting with your document</div><div style="font-size:0.82rem; margin-top:4px;">Ask anything - RAG AI answers only from YOUR doc<br/>Example: "What is the summary?"</div></div>', unsafe_allow_html=True)
+
         if prompt := st.chat_input("Type here to chat with the document content"):
             st.session_state.messages.append({"role":"user","content":prompt})
             ctx="\n\n".join(search(st.session_state.chunks,prompt, k=4))
@@ -308,4 +326,22 @@ with right:
             st.rerun()
 
 st.divider()
-st.markdown('<div style="text-align:center; padding:0.8rem; background: #f8fafc; border-radius:8px; border:1px solid #e2e8f0; font-size:0.8rem; color:#64748b !important;">🤖 FutureWorks RAG AI • Light Blue/Gray • Portfolio-Grade Fixed Chat UI • Instructions + Features + Benefits + How It Works • Expert AI Engineer Build</div>', unsafe_allow_html=True)
+# Footer with Author & Copyright - Portfolio Grade
+st.markdown(f"""
+<div style="text-align:center; padding:1rem; background: #f8fafc; border-radius:10px; border:1px solid #e2e8f0; font-size:0.82rem; color:#475569!important; line-height:1.6;">
+    <div style="font-weight:700; color:#1e293b!important; font-size:0.9rem;">🤖 FutureWorks RAG AI • Enterprise Document Intelligence</div>
+    <div style="margin-top:6px;">
+        <b>Author:</b> Prashant Tripathi |
+        <b>GitHub:</b> <a href="https://github.com/prashantjt77/futureworks-ra" target="_blank" style="color:#2563eb!important; text-decoration:none;">github.com/prashantjt77/futureworks-ra</a> |
+        <b>Contact:</b> <a href="mailto:prashantjt77@yahoo.com" style="color:#2563eb!important; text-decoration:none;">prashantjt77@yahoo.com</a>
+    </div>
+    <div style="margin-top:4px; color:#64748b!important; font-size:0.78rem;">
+        Copyright © 2025 Prashant Tripathi. All Rights Reserved. | Portfolio Project Demonstrating AI SDLC, MLOps, Responsible AI |
+        <a href="https://www.linkedin.com/in/prashantcto" target="_blank" style="color:#2563eb!important; text-decoration:none;">LinkedIn</a> •
+        <a href="https://www.linkedin.com/pulse/introducing-futureworks-rag-from-200-page-reports-answers-tripathi-bione/" target="_blank" style="color:#2563eb!important; text-decoration:none;">Case Study</a>
+    </div>
+    <div style="margin-top:6px; color:#94a3b8!important; font-size:0.75rem;">
+        Light Blue/Gray • Portfolio-Grade Fixed Chat UI • Instructions + Features + Benefits + How It Works • Expert AI Engineer Build • v{__version__}
+    </div>
+</div>
+""", unsafe_allow_html=True)
