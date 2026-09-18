@@ -23,9 +23,9 @@ with st.sidebar:
     st.divider()
     st.markdown("#### How to use:")
     st.markdown("""
-    1. **Add API Key** in Secrets
-    2. **Upload PDF/DOCX/TXT**
-    3. **Ask questions** - get answers from doc
+    
+    1. **Upload PDF/DOCX/TXT**
+    2. **Ask questions** - get answers from doc
     """)
     st.divider()
     st.markdown("#### Features:")
